@@ -1,0 +1,31 @@
+# Configurações do site
+# Edite os valores abaixo com suas informações pessoais.
+
+title: Meu Site & Blog
+email: ppablobr@gmail.com
+description: >-
+  Blog pessoal sobre tecnologia, projetos e experiências.
+  Compartilhando o que aprendo no dia a dia.
+
+baseurl: "/markdown" # subpath do repositório no GitHub Pages
+url: "https://ppablobr.github.io" # URL base do GitHub Pages
+
+twitter_username: ppablobr   # Opcional — remova a linha se não usar
+github_username: ppablobr    # Substitua pelo seu usuário do GitHub
+
+# Configurações de build
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Configurações do Minima
+minima:
+  skin: auto # Opções: "auto" (segue o sistema), "light", "dark", "solarized", "solarized-dark"
+  social_links:
+    - { platform: github, user_url: "https://github.com/ppablobr" }
+    # - { platform: twitter, user_url: "https://twitter.com/seuusuario" }
+    # - { platform: linkedin, user_url: "https://linkedin.com/in/seuusuario" }
+
+# Paginação (opcional)
+# paginate: 5
