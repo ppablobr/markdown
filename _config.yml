@@ -1,10 +1,10 @@
 # Configurações do site
 # Edite os valores abaixo com suas informações pessoais.
 
-title: Meu Site & Blog
+title: Markdown Blog
 email: ppablobr@gmail.com
 description: >-
-  Blog pessoal sobre tecnologia, projetos e experiências.
+  Blog pessoal sobre inteligência artificial, engenharia de prompts, engenharia de contexto e experiências.
   Compartilhando o que aprendo no dia a dia.
 
 baseurl: "/markdown" # subpath do repositório no GitHub Pages
