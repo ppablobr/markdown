@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<article class="vsc-post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Decorative YAML front matter block — styled as a VS Code syntax-highlighted buffer -->
+  <div class="vsc-post__frontmatter" aria-label="Post metadata" role="note">
+    <span class="vsc-post__fm-line"><span class="vsc-comment">---</span></span>
+    <span class="vsc-post__fm-line">
+      <span class="vsc-variable">title</span><span class="vsc-operator">: </span><span class="vsc-string">"{{ page.title | escape }}"</span>
+    </span>
+    <span class="vsc-post__fm-line">
+      <span class="vsc-variable">date</span><span class="vsc-operator">: </span>
+      <span class="vsc-number">
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{- page.date | date: "%Y-%m-%d" -}}
+        </time>
+      </span>
+    </span>
+    {%- if page.categories and page.categories.size > 0 -%}
+    <span class="vsc-post__fm-line">
+      <span class="vsc-variable">categories</span><span class="vsc-operator">: </span>
+      <span class="vsc-string">[{{ page.categories | join: ", " }}]</span>
+    </span>
+    {%- endif -%}
+    {%- if page.tags and page.tags.size > 0 -%}
+    <span class="vsc-post__fm-line">
+      <span class="vsc-variable">tags</span><span class="vsc-operator">: </span>
+      <span class="vsc-class">[{{ page.tags | join: ", " }}]</span>
+    </span>
+    {%- endif -%}
+    <span class="vsc-post__fm-line"><span class="vsc-comment">---</span></span>
+  </div>
+
+  <!-- Post body with line-number gutter -->
+  <div class="vsc-post__body">
+    <div class="vsc-post__content e-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+  </div>
+
+  <!-- Post footer — navigation back to home -->
+  <footer class="vsc-post__nav">
+    <a href="{{ "/" | relative_url }}" class="vsc-post__nav-link" rel="index">← index.md</a>
+  </footer>
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+</article>

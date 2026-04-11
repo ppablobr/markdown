@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body class="vsc-window">
+
+    <!-- VS Code Application Window -->
+    <div class="vsc-app">
+
+      <!-- Hidden checkbox for CSS-only mobile sidebar toggle -->
+      <input type="checkbox" id="vsc-sidebar-toggle" class="vsc-sidebar-input" aria-hidden="true">
+
+      <!-- ═══════════════════════════════════════════════════════════
+           ACTIVITY BAR — Far left, 48px strip with icon buttons
+           ═══════════════════════════════════════════════════════════ -->
+      <nav class="vsc-activitybar" aria-label="Activity Bar">
+
+        <div class="vsc-activitybar__top">
+
+          <!-- Explorer (active) — label doubles as mobile sidebar toggle -->
+          <label for="vsc-sidebar-toggle"
+                 class="vsc-activitybar__icon vsc-activitybar__icon--active"
+                 title="Explorer (Toggle Sidebar)"
+                 role="button"
+                 aria-label="Toggle file explorer sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+              <path d="M13 2v7h7"/>
+            </svg>
+          </label>
+
+          <!-- Search -->
+          <button class="vsc-activitybar__icon" title="Search" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+
+          <!-- Source Control -->
+          <button class="vsc-activitybar__icon" title="Source Control" aria-label="Source control">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="18" cy="18" r="3"/>
+              <circle cx="6" cy="6" r="3"/>
+              <path d="M13 6h3a2 2 0 012 2v7"/>
+              <line x1="6" y1="9" x2="6" y2="21"/>
+            </svg>
+          </button>
+
+          <!-- Extensions / Posts -->
+          <a href="{{ "/" | relative_url }}"
+             class="vsc-activitybar__icon {% if page.url == "/" or page.url == "/markdown/" %}vsc-activitybar__icon--active{% endif %}"
+             title="All Posts"
+             aria-label="All posts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="9" height="9" rx="1"/>
+              <rect x="13" y="2" width="9" height="9" rx="1"/>
+              <rect x="2" y="13" width="9" height="9" rx="1"/>
+              <rect x="13" y="13" width="9" height="9" rx="1"/>
+            </svg>
+          </a>
+
+        </div><!-- /.vsc-activitybar__top -->
+
+        <div class="vsc-activitybar__bottom">
+
+          <!-- GitHub -->
+          <a href="https://github.com/ppablobr"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="vsc-activitybar__icon"
+             title="GitHub: ppablobr"
+             aria-label="GitHub profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+
+          <!-- Settings -->
+          <button class="vsc-activitybar__icon" title="Settings" aria-label="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+            </svg>
+          </button>
+
+        </div><!-- /.vsc-activitybar__bottom -->
+
+      </nav><!-- /.vsc-activitybar -->
+
+      <!-- ═══════════════════════════════════════════════════════════
+           SIDEBAR — File explorer (240px)
+           ═══════════════════════════════════════════════════════════ -->
+      <aside class="vsc-sidebar" aria-label="File Explorer">
+
+        <div class="vsc-sidebar__title">Explorer</div>
+
+        <!-- File tree section -->
+        <div class="vsc-sidebar__section">
+          <div class="vsc-sidebar__section-header">
+            <span>▾</span>
+            <span>{{ site.title | upcase | truncate: 18 }}</span>
+          </div>
+
+          <ul class="vsc-filetree" role="tree" aria-label="Project files">
+
+            <!-- index.md -->
+            <li class="vsc-filetree__item" role="treeitem">
+              <a href="{{ "/" | relative_url }}"
+                 class="{% if page.url == "/" or page.url == "/markdown/" or page.url == "/markdown" %}vsc-filetree__link--active{% endif %}">
+                <span class="vsc-icon--md" aria-hidden="true">M↓</span>
+                <span>index.md</span>
+              </a>
+            </li>
+
+            <!-- about.md -->
+            <li class="vsc-filetree__item" role="treeitem">
+              <a href="{{ "/about/" | relative_url }}"
+                 class="{% if page.url contains 'about' %}vsc-filetree__link--active{% endif %}">
+                <span class="vsc-icon--md" aria-hidden="true">M↓</span>
+                <span>about.md</span>
+              </a>
+            </li>
+
+            <!-- _posts/ folder -->
+            <li class="vsc-filetree__item" role="treeitem" aria-expanded="true">
+              <span style="color: var(--vsc-text-muted); cursor:default;">
+                <span>▾</span>
+                <span style="color: #e8ab53; margin-right: 2px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-2px" aria-hidden="true">
+                    <path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"/>
+                  </svg>
+                </span>
+                _posts
+              </span>
+              <ul class="vsc-filetree__children" role="group">
+                {%- for post in site.posts limit: 10 -%}
+                <li class="vsc-filetree__item" role="treeitem">
+                  <a href="{{ post.url | relative_url }}"
+                     class="{% if page.url == post.url %}vsc-filetree__link--active{% endif %}"
+                     title="{{ post.title }}">
+                    <span class="vsc-icon--md" aria-hidden="true">M↓</span>
+                    <span>{{ post.date | date: "%Y-%m-%d" }}-{{ post.slug | truncate: 16, "" }}.md</span>
+                  </a>
+                </li>
+                {%- endfor -%}
+              </ul>
+            </li>
+
+          </ul>
+        </div><!-- /.vsc-sidebar__section (file tree) -->
+
+        <!-- OUTLINE section -->
+        <div class="vsc-sidebar__section">
+          <div class="vsc-sidebar__section-header">
+            <span>▾</span>
+            <span>Outline</span>
+          </div>
+          <div class="vsc-sidebar__outline">
+            {%- if page.title -%}
+              {{ page.title | escape }}
+            {%- else -%}
+              {{ site.title | escape }}
+            {%- endif -%}
+          </div>
+        </div>
+
+      </aside><!-- /.vsc-sidebar -->
+
+      <!-- ═══════════════════════════════════════════════════════════
+           EDITOR GROUP — Tab bar + main content
+           ═══════════════════════════════════════════════════════════ -->
+      <div class="vsc-editor-group">
+
+        {%- include vscode-tabs.html -%}
+
+        <main class="vsc-editor" id="main-content" role="main">
+          {{ content }}
+        </main>
+
+      </div><!-- /.vsc-editor-group -->
+
+    </div><!-- /.vsc-app -->
+
+    <!-- ═══════════════════════════════════════════════════════════
+         STATUS BAR — Full width, pinned at bottom
+         ═══════════════════════════════════════════════════════════ -->
+    {%- include vscode-statusbar.html -%}
+
+  </body>
+</html>

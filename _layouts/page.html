@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article class="vsc-page h-entry" itemscope itemtype="http://schema.org/WebPage">
+
+  <header class="vsc-page__header">
+    <span class="vsc-page__header-comment">// {{ page.title | escape }}</span>
+    <h1 class="vsc-page__title p-name" itemprop="name">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="vsc-page__content e-content" itemprop="description">
+    {{ content }}
+  </div>
+
+</article>

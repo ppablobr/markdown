@@ -1,0 +1,54 @@
+---
+layout: default
+---
+<div class="vsc-home">
+
+  {%- if content and content != "" -%}
+  <div class="vsc-home__intro">
+    {{ content }}
+  </div>
+  {%- endif -%}
+
+  <!-- const posts = [ -->
+  <div class="vsc-home__array-open">
+    <span class="vsc-kw">const</span>
+    <span class="vsc-variable"> posts</span>
+    <span class="vsc-operator"> = </span>
+    <span style="color: var(--vsc-text);">[</span>
+  </div>
+
+  {%- if site.posts.size > 0 -%}
+  <ul class="vsc-post-list">
+    {%- for post in site.posts -%}
+    <li class="vsc-post-entry">
+      <span class="vsc-post-entry__date">
+        <span class="vsc-comment">// {{ post.date | date: "%Y-%m-%d" }}</span>
+      </span>
+      <a class="vsc-post-entry__link" href="{{ post.url | relative_url }}">
+        <span class="vsc-string">"</span><span class="vsc-post-entry__title">{{ post.title | escape }}</span><span class="vsc-string">",</span>
+      </a>
+      {%- if post.excerpt -%}
+      <p class="vsc-post-entry__excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+      {%- endif -%}
+      {%- if post.tags and post.tags.size > 0 -%}
+      <div class="vsc-post-entry__tags">
+        {%- for tag in post.tags -%}
+        <span class="vsc-tag">{{ tag }}</span>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- else -%}
+  <p class="vsc-home__no-posts">
+    <span class="vsc-comment">// No posts yet — check back soon.</span>
+  </p>
+  {%- endif -%}
+
+  <!-- ] -->
+  <div class="vsc-home__array-close">
+    <span style="color: var(--vsc-text);">];</span>
+  </div>
+
+</div>

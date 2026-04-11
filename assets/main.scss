@@ -1,0 +1,1012 @@
+---
+---
+
+/* =============================================================================
+   VS CODE DARK THEME — MARKDOWN BLOG
+   Inspired by VS Code Default Dark+ color theme
+   Fonts: JetBrains Mono + Plus Jakarta Sans
+   ============================================================================= */
+
+/* 1. CSS VARIABLES
+   ============================================================================= */
+:root {
+  /* Surfaces */
+  --vsc-editor-bg:        #1e1e1e;
+  --vsc-sidebar-bg:       #252526;
+  --vsc-activitybar-bg:   #333333;
+  --vsc-tabbar-bg:        #2d2d2d;
+  --vsc-tab-active-bg:    #1e1e1e;
+  --vsc-tab-inactive-bg:  #2d2d2d;
+  --vsc-statusbar-bg:     #007acc;
+  --vsc-panel-border:     #3c3c3c;
+
+  /* Text */
+  --vsc-text:             #d4d4d4;
+  --vsc-text-muted:       #858585;
+  --vsc-text-dim:         #5a5a5a;
+  --vsc-statusbar-text:   #ffffff;
+  --vsc-tab-active-text:  #ffffff;
+  --vsc-tab-inactive-text:#969696;
+
+  /* Syntax colors (VS Code Default Dark+) */
+  --vsc-accent:           #007acc;
+  --vsc-keyword:          #569cd6;
+  --vsc-class:            #4ec9b0;
+  --vsc-variable:         #9cdcfe;
+  --vsc-string:           #ce9178;
+  --vsc-comment:          #6a9955;
+  --vsc-number:           #b5cea8;
+  --vsc-function:         #dcdcaa;
+  --vsc-operator:         #d4d4d4;
+  --vsc-regexp:           #d16969;
+
+  /* UI states */
+  --vsc-selection-bg:     #264f78;
+  --vsc-hover-bg:         #2a2d2e;
+  --vsc-active-item-bg:   #37373d;
+  --vsc-line-number-color:#858585;
+  --vsc-line-number-active:#c6c6c6;
+
+  /* Layout dimensions */
+  --vsc-activitybar-width: 48px;
+  --vsc-sidebar-width:     240px;
+  --vsc-tabbar-height:     35px;
+  --vsc-breadcrumb-height: 22px;
+  --vsc-statusbar-height:  22px;
+
+  /* Typography */
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-ui:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-base: 14px;
+  --font-size-sm:   12px;
+  --font-size-xs:   11px;
+}
+
+/* 2. RESET
+   ============================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+ul { list-style: none; }
+button { border: none; background: none; cursor: pointer; }
+a { text-decoration: none; }
+
+/* 3. BASE
+   ============================================================================= */
+html { height: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  color: var(--vsc-text);
+  background: var(--vsc-editor-bg);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--vsc-selection-bg);
+  color: var(--vsc-text);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+a {
+  color: var(--vsc-keyword);
+  transition: color 0.12s ease;
+}
+a:hover { color: var(--vsc-class); }
+
+/* 4. APP SHELL — Three-column VS Code layout
+   ============================================================================= */
+.vsc-app {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Hidden checkbox for CSS-only mobile sidebar toggle */
+.vsc-sidebar-input { display: none; }
+
+/* 5. ACTIVITY BAR (far left, 48px)
+   ============================================================================= */
+.vsc-activitybar {
+  width: var(--vsc-activitybar-width);
+  flex-shrink: 0;
+  background: var(--vsc-activitybar-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-right: 1px solid var(--vsc-panel-border);
+  padding: 6px 0;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.vsc-activitybar__top,
+.vsc-activitybar__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.vsc-activitybar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: #858585;
+  position: relative;
+  transition: color 0.1s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.vsc-activitybar__icon:hover {
+  color: var(--vsc-text);
+}
+
+.vsc-activitybar__icon--active {
+  color: var(--vsc-text);
+}
+
+/* Active indicator — left border stripe */
+.vsc-activitybar__icon--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 24px;
+  background: var(--vsc-accent);
+  border-radius: 0 1px 1px 0;
+}
+
+.vsc-activitybar__icon svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* 6. SIDEBAR — File explorer panel (240px)
+   ============================================================================= */
+.vsc-sidebar {
+  width: var(--vsc-sidebar-width);
+  flex-shrink: 0;
+  background: var(--vsc-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--vsc-panel-border);
+  overflow: hidden;
+}
+
+.vsc-sidebar__title {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--vsc-text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 20px 8px;
+  flex-shrink: 0;
+}
+
+.vsc-sidebar__section {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.vsc-sidebar__section + .vsc-sidebar__section {
+  border-top: 1px solid var(--vsc-panel-border);
+  flex: 0 0 auto;
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.vsc-sidebar__section-header {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--vsc-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 8px 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+/* File tree */
+.vsc-filetree {
+  list-style: none;
+  padding: 0;
+}
+
+.vsc-filetree__item {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1;
+}
+
+.vsc-filetree__item > a,
+.vsc-filetree__item > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 12px;
+  color: var(--vsc-text);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.1s ease;
+  user-select: none;
+}
+
+.vsc-filetree__item > a:hover {
+  background: var(--vsc-hover-bg);
+  color: var(--vsc-text);
+}
+
+.vsc-filetree__link--active {
+  background: var(--vsc-active-item-bg) !important;
+  color: var(--vsc-tab-active-text) !important;
+}
+
+.vsc-filetree__children {
+  list-style: none;
+  padding: 0;
+}
+
+.vsc-filetree__children .vsc-filetree__item > a {
+  padding-left: 24px;
+}
+
+.vsc-filetree__icon { font-size: 13px; flex-shrink: 0; }
+
+/* Markdown badge icon */
+.vsc-icon--md {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  background: #519aba;
+  color: #fff;
+  padding: 1px 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+.vsc-sidebar__outline {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--vsc-text-muted);
+  padding: 6px 12px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.8;
+}
+
+/* 7. EDITOR GROUP — Right panel (tabs + content)
+   ============================================================================= */
+.vsc-editor-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* 8. TAB BAR
+   ============================================================================= */
+.vsc-tabbar {
+  display: flex;
+  align-items: stretch;
+  background: var(--vsc-tabbar-bg);
+  border-bottom: 1px solid var(--vsc-panel-border);
+  height: var(--vsc-tabbar-height);
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.vsc-tabbar::-webkit-scrollbar { height: 3px; }
+
+.vsc-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  cursor: pointer;
+  border-right: 1px solid var(--vsc-panel-border);
+  color: var(--vsc-tab-inactive-text);
+  flex-shrink: 0;
+  transition: background 0.1s ease, color 0.1s ease;
+  text-decoration: none;
+}
+
+.vsc-tab--active {
+  background: var(--vsc-tab-active-bg);
+  color: var(--vsc-tab-active-text);
+  border-top: 1px solid var(--vsc-accent);
+}
+
+.vsc-tab--inactive:hover {
+  background: var(--vsc-hover-bg);
+  color: var(--vsc-text);
+}
+
+.vsc-tab__icon {
+  display: flex;
+  align-items: center;
+}
+
+.vsc-tab__close {
+  font-size: 14px;
+  line-height: 1;
+  color: transparent;
+  transition: color 0.1s ease;
+  margin-left: 2px;
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vsc-tab:hover .vsc-tab__close,
+.vsc-tab--active .vsc-tab__close {
+  color: var(--vsc-text-muted);
+}
+
+.vsc-tab__close:hover {
+  background: var(--vsc-active-item-bg);
+  color: var(--vsc-text) !important;
+}
+
+/* 9. BREADCRUMB
+   ============================================================================= */
+.vsc-breadcrumb {
+  display: flex;
+  align-items: center;
+  height: var(--vsc-breadcrumb-height);
+  background: var(--vsc-editor-bg);
+  border-bottom: 1px solid var(--vsc-panel-border);
+  padding: 0 16px;
+  gap: 4px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.vsc-breadcrumb__segment {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--vsc-text-muted);
+  white-space: nowrap;
+}
+
+.vsc-breadcrumb__segment--active {
+  color: var(--vsc-text);
+}
+
+.vsc-breadcrumb__sep {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--vsc-text-dim);
+}
+
+/* 10. EDITOR CONTENT AREA
+   ============================================================================= */
+.vsc-editor {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 48px 64px 24px;
+  background: var(--vsc-editor-bg);
+}
+
+/* 11. POST CONTENT — Prose styles
+   ============================================================================= */
+.vsc-post__content,
+.vsc-page__content {
+  max-width: 700px;
+  line-height: 1.75;
+}
+
+.vsc-post__content h1,
+.vsc-post__content h2,
+.vsc-post__content h3,
+.vsc-post__content h4,
+.vsc-post__content h5,
+.vsc-post__content h6,
+.vsc-page__content h1,
+.vsc-page__content h2,
+.vsc-page__content h3,
+.vsc-page__content h4 {
+  font-family: var(--font-mono);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+.vsc-post__content h1 { font-size: 2em; color: var(--vsc-function); }
+.vsc-post__content h2 {
+  font-size: 1.5em;
+  color: var(--vsc-keyword);
+  border-bottom: 1px solid var(--vsc-panel-border);
+  padding-bottom: 0.3em;
+}
+.vsc-post__content h3 { font-size: 1.25em; color: var(--vsc-class); }
+.vsc-post__content h4 { font-size: 1.1em; color: var(--vsc-variable); }
+.vsc-post__content h5,
+.vsc-post__content h6 { font-size: 1em; color: var(--vsc-text); }
+
+.vsc-post__content p,
+.vsc-page__content p { margin-bottom: 1.25em; color: var(--vsc-text); }
+
+.vsc-post__content ul,
+.vsc-post__content ol,
+.vsc-page__content ul,
+.vsc-page__content ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.75em;
+}
+
+.vsc-post__content ul,
+.vsc-page__content ul { list-style: disc; }
+.vsc-post__content ol,
+.vsc-page__content ol { list-style: decimal; }
+
+.vsc-post__content li,
+.vsc-page__content li { margin-bottom: 0.4em; }
+
+.vsc-post__content blockquote {
+  border-left: 3px solid var(--vsc-accent);
+  background: rgba(0, 122, 204, 0.05);
+  padding: 0.75em 1.25em;
+  margin: 1.5em 0;
+}
+
+.vsc-post__content blockquote > * { color: var(--vsc-text-muted); }
+
+.vsc-post__content strong,
+.vsc-page__content strong { color: var(--vsc-text); font-weight: 600; }
+
+.vsc-post__content em,
+.vsc-page__content em { color: var(--vsc-string); font-style: italic; }
+
+.vsc-post__content a,
+.vsc-page__content a {
+  color: var(--vsc-keyword);
+  border-bottom: 1px solid rgba(86, 156, 214, 0.3);
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.vsc-post__content a:hover,
+.vsc-page__content a:hover {
+  color: var(--vsc-class);
+  border-bottom-color: var(--vsc-class);
+}
+
+.vsc-post__content img,
+.vsc-page__content img {
+  max-width: 100%;
+  border: 1px solid var(--vsc-panel-border);
+  border-radius: 3px;
+  display: block;
+  margin: 1.5em 0;
+}
+
+.vsc-post__content hr {
+  border: none;
+  border-top: 1px solid var(--vsc-panel-border);
+  margin: 2em 0;
+}
+
+/* Inline code */
+.vsc-post__content code,
+.vsc-page__content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(255,255,255,0.06);
+  color: var(--vsc-class);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  border: 1px solid var(--vsc-panel-border);
+}
+
+/* Ensure code inside pre/highlight blocks doesn't get inline styles */
+.highlight code,
+figure.highlight code,
+.highlighter-rouge code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* 12. LINE NUMBERS — CSS counter, no JS
+   ============================================================================= */
+.vsc-post__body {
+  display: flex;
+}
+
+.vsc-post__content {
+  flex: 1;
+  min-width: 0;
+  counter-reset: vsc-line;
+}
+
+.vsc-post__content > * {
+  counter-increment: vsc-line;
+  position: relative;
+  padding-left: 4rem;
+}
+
+.vsc-post__content > *::before {
+  content: counter(vsc-line);
+  position: absolute;
+  left: 0;
+  width: 3.25rem;
+  text-align: right;
+  padding-right: 0.75rem;
+  padding-top: 0.125em;
+  color: var(--vsc-line-number-color);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: inherit;
+  user-select: none;
+  pointer-events: none;
+  border-right: 1px solid var(--vsc-panel-border);
+}
+
+/* Code blocks: override the extra left-padding since they have their own layout */
+.vsc-post__content > .highlight,
+.vsc-post__content > figure.highlight,
+.vsc-post__content > div.highlighter-rouge {
+  padding-left: 4rem; /* keep padding consistent for line-number alignment */
+}
+
+/* 13. CODE BLOCKS
+   ============================================================================= */
+pre, code { font-family: var(--font-mono); }
+
+/* Both Liquid highlight tags and fenced code blocks */
+figure.highlight,
+div.highlighter-rouge .highlight {
+  background: #1a1a1a;
+  border: 1px solid var(--vsc-panel-border);
+  border-radius: 3px;
+  margin: 1.25em 0;
+  overflow: hidden;
+}
+
+/* When inside line-number context, margin-left gets added by padding */
+.vsc-post__content > figure.highlight,
+.vsc-post__content > div.highlighter-rouge {
+  margin-left: 0;
+}
+
+figure.highlight pre,
+div.highlighter-rouge pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 1rem 1.25rem;
+  margin: 0;
+  overflow-x: auto;
+  background: transparent;
+  color: var(--vsc-text);
+}
+
+/* 14. SYNTAX HIGHLIGHTING — Rouge tokens → VS Code Default Dark+ colors
+   ============================================================================= */
+/* Comments — green */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs,
+.highlight .cp { color: #6a9955; font-style: italic; }
+
+/* Keywords — blue */
+.highlight .k,
+.highlight .kd,
+.highlight .kc,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .kn { color: #569cd6; }
+
+/* Strings — orange */
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .ss { color: #ce9178; }
+
+/* Numbers — light green */
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il { color: #b5cea8; }
+
+/* Class names — teal */
+.highlight .nc,
+.highlight .no { color: #4ec9b0; }
+
+/* Variables — light blue */
+.highlight .nv,
+.highlight .vi,
+.highlight .vc,
+.highlight .vg { color: #9cdcfe; }
+
+/* Functions / methods — yellow */
+.highlight .nf,
+.highlight .nb { color: #dcdcaa; }
+
+/* Attributes — light blue */
+.highlight .na { color: #9cdcfe; }
+
+/* Tags (HTML/XML) — blue */
+.highlight .nt { color: #569cd6; }
+
+/* Namespace — teal */
+.highlight .nn { color: #4ec9b0; }
+
+/* Decorators */
+.highlight .nd { color: #dcdcaa; }
+
+/* Operators & punctuation */
+.highlight .o,
+.highlight .ow { color: #d4d4d4; }
+.highlight .p { color: #d4d4d4; }
+
+/* Plain names/identifiers */
+.highlight .n { color: #d4d4d4; }
+.highlight .nl { color: #9cdcfe; }
+.highlight .ni { color: #d4d4d4; }
+
+/* Builtins */
+.highlight .bp { color: #9cdcfe; }
+
+/* Regex */
+.highlight .sr { color: #d16969; }
+
+/* Errors */
+.highlight .err { color: #f44747; background: transparent; }
+
+/* Generic output (terminal) */
+.highlight .go { color: #858585; }
+.highlight .gp { color: #6a9955; }
+
+/* Diff */
+.highlight .gi { color: #b5cea8; }
+.highlight .gd { color: #ce9178; }
+
+/* String interpolation */
+.highlight .se { color: #d7ba7d; }
+
+/* 15. DECORATIVE FRONTMATTER BLOCK (post top)
+   ============================================================================= */
+.vsc-post__frontmatter {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 2;
+  margin-bottom: 2.5rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--vsc-panel-border);
+  border-radius: 3px;
+  border-left: 2px solid var(--vsc-comment);
+}
+
+.vsc-post__fm-line { display: block; }
+
+/* Reusable syntax token color classes */
+.vsc-comment  { color: var(--vsc-comment); }
+.vsc-keyword  { color: var(--vsc-keyword); }
+.vsc-kw       { color: var(--vsc-keyword); }
+.vsc-class    { color: var(--vsc-class); }
+.vsc-variable { color: var(--vsc-variable); }
+.vsc-string   { color: var(--vsc-string); }
+.vsc-number   { color: var(--vsc-number); }
+.vsc-function { color: var(--vsc-function); }
+.vsc-operator { color: var(--vsc-operator); }
+
+/* 16. POST NAV FOOTER
+   ============================================================================= */
+.vsc-post__nav {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--vsc-panel-border);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+}
+
+.vsc-post__nav-link {
+  color: var(--vsc-text-muted);
+  border-bottom: none !important;
+}
+
+.vsc-post__nav-link:hover {
+  color: var(--vsc-keyword) !important;
+  border-bottom: none !important;
+}
+
+/* 17. HOME LAYOUT — const posts = [...]
+   ============================================================================= */
+.vsc-home { max-width: 700px; }
+
+.vsc-home__intro {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--vsc-comment);
+  margin-bottom: 2.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(106, 153, 85, 0.05);
+  border: 1px solid rgba(106, 153, 85, 0.2);
+  border-radius: 3px;
+  line-height: 1.8;
+}
+
+.vsc-home__array-open {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--vsc-text);
+}
+
+.vsc-post-list {
+  list-style: none;
+  padding: 0;
+  border-left: 1px solid var(--vsc-panel-border);
+  margin-left: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.vsc-post-entry {
+  padding: 1rem 0 1rem 1.5rem;
+  border-bottom: 1px solid rgba(60,60,60,0.6);
+}
+
+.vsc-post-entry:last-child { border-bottom: none; }
+
+.vsc-post-entry__date {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--vsc-comment);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.vsc-post-entry__link {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  color: var(--vsc-string);
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+  border-bottom: none !important;
+}
+
+.vsc-post-entry__link:hover {
+  color: var(--vsc-string) !important;
+  border-bottom: none !important;
+}
+
+.vsc-post-entry__link:hover .vsc-post-entry__title {
+  text-decoration: underline;
+  text-decoration-color: var(--vsc-string);
+}
+
+.vsc-post-entry__title { color: var(--vsc-string); }
+
+.vsc-post-entry__excerpt {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--vsc-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.vsc-post-entry__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.vsc-tag {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  background: rgba(78,201,176,0.08);
+  color: var(--vsc-class);
+  border: 1px solid rgba(78,201,176,0.25);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.vsc-home__array-close {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--vsc-text);
+}
+
+.vsc-home__no-posts {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--vsc-text-muted);
+  padding: 1rem 1.5rem;
+}
+
+/* 18. PAGE LAYOUT (About, static pages)
+   ============================================================================= */
+.vsc-page { max-width: 700px; }
+
+.vsc-page__header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--vsc-panel-border);
+}
+
+.vsc-page__header-comment {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--vsc-comment);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.vsc-page__title {
+  font-family: var(--font-mono);
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--vsc-function);
+  line-height: 1.25;
+}
+
+.vsc-page__content h2 {
+  color: var(--vsc-keyword);
+  font-size: 1.4em;
+  border-bottom: 1px solid var(--vsc-panel-border);
+  padding-bottom: 0.3em;
+}
+.vsc-page__content h3 { color: var(--vsc-class); font-size: 1.2em; }
+
+/* 19. STATUS BAR — Full width, pinned at bottom of body
+   ============================================================================= */
+.vsc-statusbar {
+  height: var(--vsc-statusbar-height);
+  flex-shrink: 0;
+  background: var(--vsc-statusbar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--vsc-statusbar-text);
+  user-select: none;
+  z-index: 30;
+}
+
+.vsc-statusbar__left,
+.vsc-statusbar__right {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.vsc-statusbar__item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  color: var(--vsc-statusbar-text);
+  height: 100%;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+  cursor: default;
+}
+
+a.vsc-statusbar__item {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.vsc-statusbar__item:hover,
+a.vsc-statusbar__item:hover {
+  background: rgba(255,255,255,0.15);
+  color: var(--vsc-statusbar-text) !important;
+}
+
+.vsc-statusbar__item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* 20. RESPONSIVE
+   ============================================================================= */
+@media (max-width: 1024px) {
+  :root { --vsc-sidebar-width: 200px; }
+}
+
+@media (max-width: 768px) {
+  .vsc-sidebar {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: var(--vsc-activitybar-width);
+    height: calc(100vh - var(--vsc-statusbar-height));
+    z-index: 40;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.7);
+  }
+
+  /* Show sidebar when toggle checkbox is checked */
+  .vsc-sidebar-input:checked ~ .vsc-sidebar {
+    display: flex;
+  }
+
+  .vsc-editor {
+    padding: 20px 20px 48px 16px;
+  }
+
+  .vsc-home,
+  .vsc-post__content,
+  .vsc-page { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --vsc-activitybar-width: 40px;
+    --vsc-tabbar-height: 30px;
+  }
+
+  .vsc-activitybar { width: 40px; }
+  .vsc-activitybar__icon { width: 40px; height: 40px; }
+  .vsc-activitybar__icon svg { width: 20px; height: 20px; }
+
+  .vsc-editor { padding: 16px 16px 40px 12px; }
+
+  /* Hide line numbers on tiny screens */
+  .vsc-post__content > * { padding-left: 0; }
+  .vsc-post__content > *::before { display: none; }
+
+  /* Status bar — hide non-critical items */
+  .vsc-statusbar__right .vsc-statusbar__item:nth-child(n+3) { display: none; }
+}

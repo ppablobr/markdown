@@ -10,8 +10,7 @@ description: >-
 baseurl: "/markdown" # subpath do repositório no GitHub Pages
 url: "https://ppablobr.github.io" # URL base do GitHub Pages
 
-twitter_username: ppablobr   # Opcional — remova a linha se não usar
-github_username: ppablobr    # Substitua pelo seu usuário do GitHub
+github_username: ppablobr
 
 # Configurações de build
 theme: minima
@@ -19,13 +18,4 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# Configurações do Minima
-minima:
-  skin: auto # Opções: "auto" (segue o sistema), "light", "dark", "solarized", "solarized-dark"
-  social_links:
-    - { platform: github, user_url: "https://github.com/ppablobr" }
-    # - { platform: twitter, user_url: "https://twitter.com/seuusuario" }
-    # - { platform: linkedin, user_url: "https://linkedin.com/in/seuusuario" }
-
-# Paginação (opcional)
-# paginate: 5
+show_excerpts: true
