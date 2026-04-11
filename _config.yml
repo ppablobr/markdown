@@ -19,3 +19,5 @@ plugins:
   - jekyll-seo-tag
 
 show_excerpts: true
+future: true
+timezone: America/Sao_Paulo
