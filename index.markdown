@@ -2,4 +2,4 @@
 layout: home
 ---
 
-Falo sobre **inteligência artificial aplicada em gestão de projetos**, implementação de IA em corporações e como fazer gestão de agentes.
+Aqui falamos sobre como usar Claude Code, Gemini CLI e Code para desenvolver estruturas de gestão de agentes de inteligência artificial que realmente executam.

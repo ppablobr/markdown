@@ -1,11 +1,10 @@
 # Configurações do site
 # Edite os valores abaixo com suas informações pessoais.
 
-title: Markdown Blog
+title: Mundo Markdown
 email: ppablobr@gmail.com
 description: >-
-  Blog pessoal sobre inteligência artificial, engenharia de prompts, engenharia de contexto e experiências.
-  Compartilhando o que aprendo no dia a dia.
+  Falo sobre inteligência artificial aplicada em gestão de projetos, implementação de IA em corporações e como fazer gestão de agentes.
 
 baseurl: "/markdown" # subpath do repositório no GitHub Pages
 url: "https://ppablobr.github.io" # URL base do GitHub Pages
