@@ -1,6 +1,5 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
+
+Falo sobre **inteligência artificial aplicada em gestão de projetos**, implementação de IA em corporações e como fazer gestão de agentes.
