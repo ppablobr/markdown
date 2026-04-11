@@ -1,0 +1,73 @@
+---
+---
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Lora:ital@0;1&family=Open+Sans:wght@700;800&display=swap');
+
+@import "minima";
+
+/* ============================================
+   HERO INTRO — Homepage opener
+   ============================================ */
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-intro {
+  padding: 56px 0 48px;
+  animation: heroFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-label {
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  color: #828282;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #111;
+  max-width: 700px;
+
+  p {
+    margin: 0;
+  }
+
+  strong {
+    color: #2a7ae2;
+    font-weight: 800;
+  }
+}
+
+.hero-divider {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 48px 0 40px;
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+  .hero-intro {
+    padding: 36px 0 32px;
+  }
+
+  .hero-text {
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+}
