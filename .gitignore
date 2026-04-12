@@ -4,8 +4,16 @@ _site/
 .jekyll-metadata
 vendor/
 Gemfile.lock
+.mcp.json
 mcp.json
 .env
 .DS_Store
 **/.DS_Store
 .claude
+cloudinary_config.rb
+cloudinary-mcp-server
+cloudinary-mcp-server-*.log
+cloudinary-mcp-server-*.pid
+gemini-image-mcp-server
+gemini-image-mcp-server-*.log
+gemini-image-mcp-server-*.pid
