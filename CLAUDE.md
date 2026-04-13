@@ -52,7 +52,15 @@ tags: [tag1, tag2]
 ---
 ```
 
-**Cover images**: generated via Gemini MCP, uploaded to Cloudinary, referenced in front matter as `image: https://res.cloudinary.com/dgqhglwo5/...`. Search Cloudinary before generating a new image (`mcp__cloudinary__cloudinary_search`) to avoid duplicates.
+**Cover images**: The Minima theme does NOT render the `image:` front matter field as a visual element — it only populates SEO meta tags (`og:image`, `twitter:card`). To display the image visually in the post:
+1. Generate via `imagen-prompt-architect` skill (Gemini Imagen 3, 16:9 infographic)
+2. Upload to Cloudinary → get `secure_url`
+3. Add `image: [cloudinary_url]` to front matter (for SEO)
+4. Embed `<figure>` with the Cloudinary URL directly in the post body (after intro, before first `##`)
+
+Always use the absolute Cloudinary URL in `<figure>` — never `relative_url` for externally hosted images.
+
+Search Cloudinary before generating (`mcp__cloudinary__cloudinary_search`) to avoid duplicates.
 
 **Static pages** use `layout: page` and live at the repo root (`about.markdown`, etc.).
 
@@ -71,16 +79,43 @@ Key `_config.yml` settings:
 
 | Layer | Role | Assets |
 |-------|------|--------|
-| **Workflows** | Instructions (SOPs) | `workflows/publish-post.md`, `workflows/update-theme.md`, `workflows/new-post-from-draft.md` |
-| **Agents** | Decision-making | Claude (coordination) + `ai-agent-editor` (content) + `frontend-design` (visual) |
-| **Tools** | Execution | MCP tools for I/O; `tools/*.py` for local computation (none yet) |
+| **Workflows** | Instructions (SOPs) | `workflows/publish-post.md` (exists), `workflows/update-theme.md` (pending), `workflows/new-post-from-draft.md` (pending) |
+| **Agents** | Decision-making | Claude root (coordination) + `ai-agent-editor` subagent (content) + `frontend-design` subagent (visual) |
+| **Tools** | Execution | MCP tools for I/O; `~/.claude/skills/` for complex multi-step tasks; `tools/*.py` for local computation |
 
 **Before starting any multi-step task**: check `workflows/` for an existing SOP. If one exists, follow it. If not, complete the task, then evaluate whether it's repeatable enough to warrant creating a workflow.
 
 **Workflow triggers:**
-- `publish-post.md` — writing and publishing a new post end-to-end
-- `update-theme.md` — CSS, layout, or design changes
-- `new-post-from-draft.md` — Pedro provides raw text; format and publish it
+- `publish-post.md` — writing and publishing a new post end-to-end (exists)
+- `update-theme.md` — CSS, layout, or design changes (pending)
+- `new-post-from-draft.md` — Pedro provides raw text; format and publish it (pending)
+
+---
+
+## Publishing Pipeline — Sequência obrigatória
+
+Every new post follows this sequence. Do not skip steps.
+
+```
+1. ai-agent-editor subagent
+   └── WebSearch (4-6 fontes)
+   └── Lê _posts/ (link building interno)
+   └── Escreve post completo
+   └── Salva _posts/YYYY-MM-DD-slug.md
+   └── Retorna HANDOFF (file_path, article_type, h2_sections, key_concepts, cover_brief)
+
+2. Root agent → Skill imagen-prompt-architect (modo infográfico)
+   └── Gera infográfico 16:9 em assets/images/
+   └── Root agent faz upload Cloudinary → captura secure_url
+   └── Root agent insere <figure> no body do post (após intro, antes do 1º ##)
+   └── Root agent adiciona image: [cloudinary_url] ao front matter
+
+3. Root agent apresenta post completo ao Pedro para aprovação
+
+4. Root agent publica via GitHub MCP (preferência) ou git push
+```
+
+**Subagent limitation**: `ai-agent-editor` does not have access to Cloudinary, Gemini image, or GitHub MCP tools. Image generation and publishing are always the root agent's responsibility.
 
 ---
 
@@ -109,10 +144,14 @@ Check here before building anything new. Only create tools that don't already ex
 
 Do not handle content creation or design decisions directly. Delegate:
 
-- **`ai-agent-editor`** — writing posts, editing drafts, brainstorming topics, checking technical accuracy of AI content
+- **`ai-agent-editor`** — writing posts, editing drafts, brainstorming topics, checking technical accuracy of AI content. Returns a structured HANDOFF block; root agent handles image and publishing after.
 - **`frontend-design`** — CSS changes, layout modifications, visual component evaluation, custom HTML
 
-These subagents carry domain context that the root agent does not. Route to them early, not as a fallback.
+**Skills (run in root agent context, have full MCP access):**
+- **`imagen-prompt-architect`** — infographic and cover image generation via Gemini Imagen 3 + Cloudinary upload
+- **`ai-blog-editor`** — alternative full pipeline skill (research + write + image + publish) for cases where the subagent flow is not needed
+
+These agents and skills carry domain context that the root agent does not. Route to them early, not as a fallback. After delegation, root agent always handles: image upload to Cloudinary, `<figure>` embedding, front matter `image:` field, and push.
 
 ---
 
