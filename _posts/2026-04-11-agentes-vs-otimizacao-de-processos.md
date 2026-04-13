@@ -85,4 +85,4 @@ Se a resposta for não, comece pelo processo.
 
 ---
 
-*Se esse tema é relevante para o que você está construindo, o [próximo post da série vai entrar em context engineering](https://ppablobr.github.io/markdown/context-engineering/2026/04/11/context-engineering/): como projetar o contexto que agentes precisam para tomar decisões confiáveis.*
+*Se esse tema é relevante para o que você está construindo, o [próximo post da série vai entrar em context engineering](https://ppablobr.github.io/markdown/ia/agentes/2026/04/12/context-engineering-agentes/): como projetar o contexto que agentes precisam para tomar decisões confiáveis.*
