@@ -26,7 +26,7 @@ This is a **Jekyll 4.4.1** static site hosted on **GitHub Pages** under `https:/
 
 **Deployment**: GitHub Actions (`.github/workflows/jekyll.yml`) automatically builds and deploys on every push to `main`. No manual deployment step needed. When operating as an agent, prefer publishing via GitHub MCP (`mcp__github__create_or_update_file`, `mcp__github__push_files`) rather than `git push`.
 
-**Theme**: Minima 2.5 with `skin: auto` (light/dark). Layouts (`home`, `page`, `post`) come from the gem — there are no local overrides in `_layouts/` or `_includes/` yet.
+**Theme**: Minima 2.5 with `skin: auto` (light/dark). Layouts (`page`, `post`) come from the gem. `_layouts/home.html` is a local override (created Apr 11, 2026). No `_includes/` overrides yet.
 
 **Plugins**: `jekyll-feed` (RSS at `/feed.xml`) and `jekyll-seo-tag` (SEO meta tags via `_config.yml` fields).
 
@@ -47,7 +47,7 @@ Required front matter:
 layout: post
 title: "Post Title"
 date: YYYY-MM-DD HH:MM:SS +0000
-categories: blog pessoal   # creates URL /blog/pessoal/YYYY/MM/DD/slug/
+categories: ia agentes     # creates URL /ia/agentes/YYYY/MM/DD/slug/
 tags: [tag1, tag2]
 ---
 ```
@@ -134,6 +134,7 @@ Check here before building anything new. Only create tools that don't already ex
 
 **Gemini MCP**
 - `mcp__gemini-image__gemini_generate_image` — generate post cover images
+- **Note**: Gemini MCP is declared in `.mcp.json` (hidden, gitignored), not in `mcp.json`. Both files exist; `.mcp.json` is the authoritative active config.
 
 **Python tools (`tools/`)**
 - None yet. Create here for local computation (markdown validation, front matter linting, batch operations) that doesn't require network credentials or API calls.
@@ -151,6 +152,11 @@ Do not handle content creation or design decisions directly. Delegate:
 - **`imagen-prompt-architect`** — infographic and cover image generation via Gemini Imagen 3 + Cloudinary upload
 - **`ai-blog-editor`** — alternative full pipeline skill (research + write + image + publish) for cases where the subagent flow is not needed
 
+**Local project skills (`.claude/skills/`):**
+- **`frontend-design`** — CSS/layout decisions for this blog
+- **`skill-creator`** — create and improve skills
+- **`theme-factory`** — visual theme definitions for artifacts
+
 These agents and skills carry domain context that the root agent does not. Route to them early, not as a fallback. After delegation, root agent always handles: image upload to Cloudinary, `<figure>` embedding, front matter `image:` field, and push.
 
 ---
@@ -166,14 +172,18 @@ These agents and skills carry domain context that the root agent does not. Route
 ## File Structure
 
 ```
-_posts/           # Published blog posts (YYYY-MM-DD-slug.md)
-workflows/        # Blog SOPs — read before starting multi-step tasks
-tools/            # Python scripts for local computation (empty for now)
-.tmp/             # Temporary files — regenerated as needed, gitignored
-assets/           # SCSS and static assets
-.env              # API keys (never commit, never echo contents)
-.claude/agents/   # Subagent definitions (ai-agent-editor, frontend-design)
-mcp.json          # MCP server declarations (GitHub, Cloudinary)
+_posts/                   # Published blog posts (YYYY-MM-DD-slug.md)
+_layouts/home.html        # Custom home layout override (rest come from Minima gem)
+workflows/                # Blog SOPs — read before starting multi-step tasks
+assets/                   # SCSS and static assets (assets/images/ for infographics)
+.env                      # API keys (never commit, never echo contents)
+.claude/agents/           # Subagent definitions (ai-agent-editor, frontend-design)
+.claude/commands/         # Command-level overrides for subagents
+.claude/agent-memory/     # Persistent memory files for subagents (ai-agent-editor)
+.claude/skills/           # Local project skills (frontend-design, skill-creator, theme-factory)
+mcp.json                  # Legacy MCP config (GitHub + Cloudinary only)
+.mcp.json                 # Active MCP config (GitHub + Cloudinary + Gemini image) — gitignored
 gemini-image-mcp-server/  # Gemini image MCP (local Node server)
-WAT.md            # Operating framework — read this
+WAT.md                    # Operating framework — read this
+tools/                    # Python scripts for local computation — directory does not exist yet; create when needed
 ```
