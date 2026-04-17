@@ -96,7 +96,7 @@ A janela de 1 milhão de tokens muda o que você pode colocar no contexto de uma
 
 O Google Search nativo resolve outro problema frequente: quando o agente precisa de informação que está fora do contexto local, ele pode buscá-la sem que você precise interromper o fluxo para copiar e colar. Isso é especialmente útil em tarefas de pesquisa, análise de mercado, ou qualquer coisa que dependa de dados atualizados.
 
-Para arquiteturas de agentes mais complexas, o suporte a MCP é o ponto de extensão. Se você já tem [um sistema com memória persistente via Obsidian](https://ppablobr.github.io/markdown/blog/pessoal/2026/04/12/claude-code-obsidian-time-agentes/) ou ferramentas customizadas via MCP, o Gemini CLI pode se conectar ao mesmo ecossistema.
+Para arquiteturas de agentes mais complexas, o suporte a MCP é o ponto de extensão. Se você já tem um sistema com memória persistente via Obsidian ou ferramentas customizadas via MCP, o Gemini CLI pode se conectar ao mesmo ecossistema.
 
 ---
 
