@@ -67,8 +67,9 @@ HANDOFF:
    )
    ```
 4. Captura `secure_url` retornada pelo Cloudinary
-5. Insere `<figure>` no arquivo do post (ver posição abaixo)
-6. Atualiza o campo `image:` no front matter com a URL do Cloudinary
+5. Deleta o arquivo local: `Bash("rm /caminho/absoluto/assets/images/YYYYMMDD_..._infografico.png")`
+6. Insere `<figure>` no arquivo do post (ver posição abaixo)
+7. Atualiza o campo `image:` no front matter com a URL do Cloudinary
 
 **Posição do `<figure>` no post:**
 

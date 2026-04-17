@@ -1,18 +1,21 @@
 ---
 layout: page
-title: About
+title: Sobre
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+**Mundo Markdown** é um blog sobre inteligência artificial que realmente executa tarefas.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Aqui o foco não é IA como conceito distante — é IA que age: agentes que tomam decisões, encadeiam ferramentas e entregam resultado. Escrevo sobre como implementar isso em ambientes corporativos, integrar agentes em fluxos de trabalho reais e fazer a gestão de sistemas que operam com autonomia.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Os temas centrais do blog:
 
+- **Agentes de IA** — como construir, orquestrar e monitorar agentes que executam
+- **Gestão de projetos com IA** — como times usam inteligência artificial no dia a dia do trabalho
+- **Implementação corporativa** — do piloto ao ambiente de produção, com os erros e aprendizados no caminho
 
-[jekyll-organization]: https://github.com/jekyll
+Se você está tentando tirar IA do PowerPoint e colocar em produção, este blog é para você.
+
+---
+
+Escrito por **Pedro Oliveira** — [GitHub](https://github.com/ppablobr)
